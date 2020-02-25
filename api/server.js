@@ -1,10 +1,9 @@
 const express = require("express");
-const helmet = require("helmet");
+const configureMiddleware = require("./configMiddleware");
+const apiRouter = require("./api-router");
 const server = express();
-server.use(helmet());
-server.use(express.json());
+configureMiddleware(server);
 
-server.get("/", (req, res) => {
-  res.status(200).send("node-auth1-project");
-});
+server.use("/api", apiRouter);
+
 module.exports = server;
