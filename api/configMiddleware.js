@@ -8,7 +8,7 @@ const KnexStore = require("connect-session-knex")(session); // use knex to store
 
 const sessionConfig = {
   name: "monkey",
-  secret: "keep it secret, silly",
+  secret: "typewriters",
   cookie: {
     maxAge: 1000 * 30,
     secure: false,
