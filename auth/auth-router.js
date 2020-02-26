@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
-const express = require("express");
 const Users = require("../users/users-model");
-const router = express.Router();
+const router = require("express").Router();
 router.get("/", (req, res) => {
   res.status(200).send("what");
 });
@@ -28,6 +27,10 @@ router.post("/login", (req, res) => {
       .first()
       .then(user => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
+          req.session.user = `${req.body.username}`;
+          req.session.loggedIn = true;
+          req.session.save(); // don't forget this!
+          // console.log(req.session); //
           res.status(200).json({ message: `Welcome ${user.username}!` });
         } else {
           res.status(401).json({ message: "you shall not pass" });
